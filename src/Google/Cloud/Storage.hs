@@ -5,6 +5,7 @@ module Google.Cloud.Storage where
 
 import Control.Monad
 
+import Data.Aeson
 import Data.ByteString (ByteString)
 import Data.Monoid
 
@@ -27,3 +28,10 @@ uploadMedia bucket name body contentType = do
     void $ post url [("Content-Type", contentType), authH] body
   where
     url = "https://www.googleapis.com/upload/storage/v1/b/" <> unBucket bucket <> "/o?uploadType=media&name=" <> unName name
+
+downloadMedia :: (FromJSON a) => Bucket -> Name -> Cloud a
+downloadMedia bucket name = do
+    authH <- authorizationHeader
+    getJSON url [("Content-Type", "application/json"), authH]
+  where
+    url = "https://www.googleapis.com/upload/storage/v1/b/" <> unBucket bucket <> "/o/" <> unName name

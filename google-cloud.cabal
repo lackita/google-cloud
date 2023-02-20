@@ -1,5 +1,5 @@
 name:                google-cloud
-version:             0.0.5
+version:             0.0.6
 
 synopsis:            Client for the Google Cloud APIs
 description:         Storage, Compute, ...
